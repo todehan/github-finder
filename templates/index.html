@@ -29,25 +29,27 @@
             </form>
         </div>
         <br>
-        <div id="profile">
+        {% if profile  %}
+          <div id="profile">
             
             <div class="card card-body mb-3">
                     <div class="row">
                       <div class="col-md-3">
-                        <img class="img-fluid mb-2" src="https://avatars0.githubusercontent.com/u/15064847?v=4">
-                        <a href="#" target="_blank" class="btn btn-danger btn-block mb-4">Profili Görüntüle</a>
+                        <img class="img-fluid mb-2" src="{{profile.avatar_url}}">
+                        <a href="{{profile.html_url}}" target="_blank" class="btn btn-danger btn-block mb-4">Profili Görüntüle</a>
                       </div>
                       <div class="col-md-9">
-                        <span class="badge badge-primary">Repo Sayısı:  </span>
-                        <span class="badge badge-secondary">Gist Sayısı:  </span>
-                        <span class="badge badge-success">Takipçi: </span>
-                        <span class="badge badge-info">Takip Edilen: </span>
+                        <span class="badge badge-primary">Repo Sayısı: {{profile.public_repos}}  </span>
+                        <span class="badge badge-secondary">Gist Sayısı: {{profile.public_gists}} </span>
+                        <span class="badge badge-success">Takipçi: {{profile.followers}} </span>
+                        <span class="badge badge-info">Takip Edilen: {{profile.following}} </span>
                         <br><br>
                         <ul class="list-group">
-                          <li class="list-group-item">Şirket:</li>
-                          <li class="list-group-item">Website/Blog:</li>
-                          <li class="list-group-item">Yer:</li>
-                          <li class="list-group-item">Ne zamandan beri üye:</li>
+                          <li class="list-group-item">İsim: {{profile.name}}</li>
+                          <li class="list-group-item">Şirket: {{profile.company}}</li>
+                          <li class="list-group-item">Website/Blog: {{profile.blog}}</li>
+                          <li class="list-group-item">Yer: {{profile.location}}</li>
+                          <li class="list-group-item">Ne zamandan beri üye: {{profile.created_at}}</li>
                         </ul>
                       </div>
                     </div>
@@ -72,7 +74,18 @@
                   </div> 
             
             
-        </div>
+           </div>
+        {% else %}
+          {% if error %}
+            <div class="alert alert-danger">
+              {{error}}
+            </div>
+          {% endif %}
+        {% endif %}
+          
+        
+        
+        
 
        
     </div>
