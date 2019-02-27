@@ -8,12 +8,16 @@ baseUrl = "https://api.github.com/users/"
 def index():
     if request.method == "POST":
         githubname = request.form.get("githubname")
-        response = requests.get(baseUrl + githubname)
-        userInfo = response.json()
+        responseUser = requests.get(baseUrl + githubname)
+        responseRepos =requests.get(baseUrl + githubname + "/repos")
+
+        userInfo = responseUser.json()
+        userRepos = responseRepos.json()
+
         if "message" in userInfo:
             return render_template("index.html", error = "Kullanici Bulunamadi")
         else:    
-            return render_template("index.html", profile = userInfo) 
+            return render_template("index.html", profile = userInfo , repos = userRepos) 
     else:
         return render_template("index.html")
 
